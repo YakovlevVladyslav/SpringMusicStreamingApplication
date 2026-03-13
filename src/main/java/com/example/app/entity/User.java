@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "albums")
+@Table(name = "users")
 @NoArgsConstructor
 @Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column(name = "userName", nullable = false)
     private String userName;

@@ -15,14 +15,16 @@ import java.util.List;
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long album_id;
 
-    @ManyToOne
-    @Column(name = "albumName", nullable = false, insertable=false, updatable=false)
+
+    @Column(name = "albumName", nullable = false)
     // @JsonProperty("album_title") in json i'll call it by album_title but in java code i can call it title
     private String albumName;
-    @Column(name = "title", nullable = false)
-    private String artist;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 
     @OneToMany(mappedBy = "album")
     private List<Song> songs;

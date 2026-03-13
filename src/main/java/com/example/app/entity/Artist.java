@@ -12,11 +12,11 @@ import java.util.List;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long artist_id;
 
     @Column(name = "artistName", nullable = false)
     private String artistName;
 
-    @OneToMany(mappedBy = "albumName")
+    @OneToMany(mappedBy = "album_id")
     private List<Album> albums;
 }
