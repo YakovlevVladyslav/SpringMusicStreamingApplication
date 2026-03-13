@@ -28,7 +28,7 @@ public class Album {
 
 
 
-    @OneToMany(mappedBy = "fromAlbum")
+    @OneToMany(mappedBy = "album") // Matches "private Album album" in Song.java
     private List<Song> songs;
 
 }

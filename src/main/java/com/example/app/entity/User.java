@@ -19,9 +19,9 @@ public class User {
     @Column(name = "userName", nullable = false)
     private String userName;
 
-    @OneToMany(mappedBy = "playlistName")
+    @OneToMany(mappedBy = "user") // Matches "private User user" in Playlist.java)
     private List<Playlist> playlists;
 
-    @ManyToMany(mappedBy = "artistName")
+    @ManyToMany(mappedBy = "fans") // Matches "private List<User> fans" in Artist.java
     private List<Artist> favouriteArtists;
 }

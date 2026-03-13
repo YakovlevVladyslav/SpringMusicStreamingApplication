@@ -19,6 +19,10 @@ public class Playlist {
     @Column(name = "playlistName", nullable = false)
     private String playlistName;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany
     @JoinTable(
             name = "playlist_song",
