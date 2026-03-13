@@ -16,4 +16,6 @@ public class Song {
     @ManyToOne
     private Album album;
 
+
+    private String songName;
 }

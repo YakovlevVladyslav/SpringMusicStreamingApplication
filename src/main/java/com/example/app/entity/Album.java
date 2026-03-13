@@ -17,9 +17,10 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, insertable=false, updatable=false)
+    @ManyToOne
+    @Column(name = "albumName", nullable = false, insertable=false, updatable=false)
     // @JsonProperty("album_title") in json i'll call it by album_title but in java code i can call it title
-    private String title;
+    private String albumName;
     @Column(name = "title", nullable = false)
     private String artist;
 
