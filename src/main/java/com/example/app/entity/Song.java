@@ -14,7 +14,7 @@ public class Song {
     private Long id;
 
     @ManyToOne
-    private Album album;
+    private Album fromAlbum;
 
 
     @Column(name = "songName", nullable = false)

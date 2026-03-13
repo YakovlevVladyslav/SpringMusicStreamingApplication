@@ -21,10 +21,10 @@ public class Album {
     @Column(name = "albumName", nullable = false, insertable=false, updatable=false)
     // @JsonProperty("album_title") in json i'll call it by album_title but in java code i can call it title
     private String albumName;
-    @Column(name = "title", nullable = false)
+    @Column(name = "artist", nullable = false)
     private String artist;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "fromAlbum")
     private List<Song> songs;
 
 }
