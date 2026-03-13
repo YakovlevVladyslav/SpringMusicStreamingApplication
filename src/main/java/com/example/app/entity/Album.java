@@ -26,7 +26,9 @@ public class Album {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    @OneToMany(mappedBy = "album")
+
+
+    @OneToMany(mappedBy = "fromAlbum")
     private List<Song> songs;
 
 }
