@@ -17,5 +17,6 @@ public class Song {
     private Album album;
 
 
+    @Column(name = "songName", nullable = false)
     private String songName;
 }
