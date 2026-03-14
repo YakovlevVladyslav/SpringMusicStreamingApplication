@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ public class Artist {
     @Column(name = "artistName", nullable = false)
     private String artistName;
 
-    @OneToMany(mappedBy = "artist") // Matches "private Artist artist" in Album.java
+    @OneToMany(mappedBy = "artist")// Matches "private Artist artist" in Album.java
+    @JsonManagedReference // to prevent infinite recursion during JSON serialization
     private List<Album> albums;
 
     @ManyToMany

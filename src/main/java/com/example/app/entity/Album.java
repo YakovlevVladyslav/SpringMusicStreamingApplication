@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,11 +20,11 @@ public class Album {
 
 
     @Column(name = "albumName", nullable = false)
-    // @JsonProperty("album_title") in json i'll call it by album_title but in java code i can call it title
     private String albumName;
 
     @ManyToOne
     @JoinColumn(name = "artist_id")
+    @JsonBackReference // to prevent infinite recursion during JSON serialization
     private Artist artist;
 
 
