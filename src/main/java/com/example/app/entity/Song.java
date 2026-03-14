@@ -1,6 +1,7 @@
 package com.example.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Song {
     private Album album;
 
     @ManyToMany(mappedBy = "songs")
-    @JsonBackReference("playlist-song")
+    @JsonIgnoreProperties("songs") // To prevent infinite recursion during JSON serialization
     private List<Playlist> playlists;
 
 

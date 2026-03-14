@@ -1,6 +1,7 @@
 package com.example.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class User {
     private List<Playlist> playlists;
 
     @ManyToMany(mappedBy = "fans") // Matches "private List<User> fans" in Artist.java
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnoreProperties("fans")
     private List<Artist> favouriteArtists;
 }

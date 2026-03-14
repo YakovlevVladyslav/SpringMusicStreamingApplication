@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,7 +24,8 @@ public class Artist {
     private List<Album> albums;
 
     @ManyToMany
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonIgnoreProperties("favouriteArtists") // To prevent infinite recursion during JSON serialization
     @JoinTable(
             name = "user_favourite_artists",
             joinColumns = @JoinColumn(name = "artist_id"),
