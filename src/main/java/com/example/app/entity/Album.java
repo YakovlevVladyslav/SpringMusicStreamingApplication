@@ -1,6 +1,7 @@
 package com.example.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class Album {
 
 
     @OneToMany(mappedBy = "album") // Matches "private Album album" in Song.java
+    @JsonManagedReference("album-song") // to manage the forward part of the reference
     private List<Song> songs;
 
 }

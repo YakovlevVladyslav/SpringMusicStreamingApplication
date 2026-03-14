@@ -23,6 +23,7 @@ public class Artist {
     private List<Album> albums;
 
     @ManyToMany
+    @JsonManagedReference
     @JoinTable(
             name = "user_favourite_artists",
             joinColumns = @JoinColumn(name = "artist_id"),

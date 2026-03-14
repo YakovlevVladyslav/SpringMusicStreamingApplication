@@ -1,5 +1,7 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,12 @@ public class Playlist {
     private String playlistName;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
+    @JsonManagedReference("playlist-song")
     @JoinTable(
             name = "playlist_song",
             joinColumns = @JoinColumn(name = "playlist_id"),

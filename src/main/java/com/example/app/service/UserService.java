@@ -52,7 +52,7 @@ public class UserService {
      * Delete an user from the database
      */
     public void deleteUser(Long id) {
-        User artist = getUserById(id);
+        User user = getUserById(id);
         userRepository.delete(user);
     }
 
