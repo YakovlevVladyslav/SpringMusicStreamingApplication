@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melodia — Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="logo">
+        <h1>♫ Melodia</h1>
+        <p>Admin Panel</p>
+    </div>
+    <nav class="nav">
+        <div class="nav-section">
+            <div class="nav-label">Library</div>
+            <div class="nav-item active" onclick="switchPage('songs')">
+                <span class="icon">♪</span><span>Songs</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('artists')">
+                <span class="icon">★</span><span>Artists</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('albums')">
+                <span class="icon">◉</span><span>Albums</span>
+            </div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Users</div>
+            <div class="nav-item" onclick="switchPage('playlists')">
+                <span class="icon">≡</span><span>Playlists</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('users')">
+                <span class="icon">◎</span><span>Users</span>
+            </div>
+        </div>
+    </nav>
+    <div class="api-url">
+        <label>API Base URL</label>
+        <input id="baseUrl" value="http://localhost:7979" onchange="setBaseUrl(this.value)" />
+    </div>
+</aside>
+
+<main class="main">
+    <section class="page active" id="page-songs">
+        <div class="page-header">
+            <div>
+                <h2>Songs</h2>
+                <p>/api/songs — GET · POST · PATCH · DELETE</p>
+            </div>
+        </div>
+        <div class="create-card">
+            <h3>Add New Song</h3>
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Song Name</label>
+                    <input id="s-name" type="text" placeholder="Enter song name..." />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="createSong()">+ Create Song</button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <div class="table-header">
+                <h3>All Songs</h3>
+                <button class="refresh-btn" onclick="loadSongs()">↻ Refresh</button>
+            </div>
+            <div id="songs-table-body"></div>
+        </div>
+    </section>
+
+</main>
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <h3 id="modal-title">Edit</h3>
+        <div class="form-group">
+            <label id="modal-field-label">Name</label>
+            <input id="modal-input" type="text" />
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" onclick="submitEdit()">Save Changes</button>
+            <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="toast-container" id="toasts"></div>
+
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/services/songService.js"></script>
+<script src="js/services/artistService.js"></script>
+<script src="js/services/albumService.js"></script>
+<script src="js/services/userService.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
