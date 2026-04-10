@@ -1,7 +1,8 @@
 package com.example.app.controller;
 
 import com.example.app.entity.Artist;
-import com.example.app.service.ArtistService; // Updated import
+import com.example.app.service.ArtistService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,44 +12,41 @@ import java.util.List;
 @RequestMapping("/api/artists")
 public class ArtistController {
 
-    private final ArtistService artistService; // Using the specialized service
+    private final ArtistService artistService;
 
     public ArtistController(ArtistService artistService) {
         this.artistService = artistService;
     }
 
-    // 1. CREATE
+    // 1. CREATE -> 201 Created
     @PostMapping
-    public ResponseEntity<Artist> createArtist(@RequestBody Artist artist) {
-        Artist savedArtist = artistService.saveArtist(artist);
-        return ResponseEntity.ok(savedArtist);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Artist createArtist(@RequestBody Artist artist) {
+        return artistService.saveArtist(artist);
     }
 
-    // 2. GET BY ID
+    // 2. GET BY ID -> 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<Artist> getArtistById(@PathVariable Long id) {
-        Artist artist = artistService.getArtistById(id);
-        return ResponseEntity.ok(artist);
+    public Artist getArtistById(@PathVariable Long id) {
+        return artistService.getArtistById(id);
     }
 
-    // 3. PATCH - Update only the name
+    // 3. PATCH -> 200 OK
     @PatchMapping("/{id}")
-    public ResponseEntity<Artist> updateArtistName(@PathVariable Long id, @RequestBody Artist artistDetails) {
-        // We extract the name from the incoming object
-        Artist updatedArtist = artistService.updateArtistName(id, artistDetails.getArtistName());
-        return ResponseEntity.ok(updatedArtist);
+    public Artist updateArtistName(@PathVariable Long id, @RequestBody Artist artistDetails) {
+        return artistService.updateArtistName(id, artistDetails.getArtistName());
     }
 
-    // 4. DELETE BY ID
+    // 4. DELETE -> 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArtist(@PathVariable Long id) {
         artistService.deleteArtist(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 5. GET ALL
+    // 5. GET ALL -> 200 OK
     @GetMapping
-    public ResponseEntity<List<Artist>> getAllArtists() {
-        return ResponseEntity.ok(artistService.getAllArtists());
+    public List<Artist> getAllArtists() {
+        return artistService.getAllArtists();
     }
 }

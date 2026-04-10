@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.IdGeneratorType;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class Album {
 
 
     @Column(name = "albumName", nullable = false)
+    @Length(min = 1, max = 255, message = "Album name must be between 1 and 255 characters")
     private String albumName;
 
     @ManyToOne

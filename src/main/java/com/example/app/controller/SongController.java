@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import com.example.app.entity.Song;
 import com.example.app.service.SongService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,38 +18,35 @@ public class SongController {
         this.songService = songService;
     }
 
-    // 1. CREATE
+    // 1. CREATE -> 201 Created
     @PostMapping
-    public ResponseEntity<Song> createSong(@RequestBody Song song) {
-        Song savedSong = songService.saveSong(song);
-        return ResponseEntity.ok(savedSong);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Song createSong(@RequestBody Song song) {
+        return songService.saveSong(song);
     }
 
-    // 2. GET BY ID
+    // 2. GET BY ID -> 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongById(@PathVariable Long id) {
-        Song song = songService.getSongById(id);
-        return ResponseEntity.ok(song);
+    public Song getSongById(@PathVariable Long id) {
+        return songService.getSongById(id);
     }
 
-    // 3. PATCH - Update only the name by ID
+    // 3. PATCH -> 200 OK
     @PatchMapping("/{id}")
-    public ResponseEntity<Song> updateSongName(@PathVariable Long id, @RequestBody Song songDetails) {
-        // Uses songName from the request body to update the entity
-        Song updatedSong = songService.updateSongName(id, songDetails.getSongName());
-        return ResponseEntity.ok(updatedSong);
+    public Song updateSongName(@PathVariable Long id, @RequestBody Song songDetails) {
+        return songService.updateSongName(id, songDetails.getSongName());
     }
 
-    // 4. DELETE
+    // 4. DELETE -> 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSong(@PathVariable Long id) {
         songService.deleteSong(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 5. GET ALL
+    // 5. GET ALL -> 200 OK
     @GetMapping
-    public ResponseEntity<List<Song>> getAllSongs() {
-        return ResponseEntity.ok(songService.getAllSongs());
+    public List<Song> getAllSongs() {
+        return songService.getAllSongs();
     }
 }

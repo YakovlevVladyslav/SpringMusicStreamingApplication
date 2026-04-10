@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import com.example.app.entity.Album;
+import com.example.app.exceptions.ResourceNotFoundException;
 import com.example.app.repository.AlbumRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class AlbumService {
     // 3. GET BY ID
     public Album getAlbumById(Long id) {
         return albumRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Album not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Album not found with id: " + id));
     }
 
     // 4. PATCH (Update name only)

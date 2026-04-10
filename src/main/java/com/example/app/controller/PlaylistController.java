@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import com.example.app.entity.Playlist;
 import com.example.app.service.PlaylistService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,38 +18,35 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
-    // 1. CREATE
+    // 1. CREATE -> 201 Created
     @PostMapping
-    public ResponseEntity<Playlist> createPlaylist(@RequestBody Playlist playlist) {
-        Playlist savedPlaylist = playlistService.savePlaylist(playlist);
-        return ResponseEntity.ok(savedPlaylist);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Playlist createPlaylist(@RequestBody Playlist playlist) {
+        return playlistService.savePlaylist(playlist);
     }
 
-    // 2. GET BY ID
+    // 2. GET BY ID -> 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<Playlist> getPlaylistById(@PathVariable Long id) {
-        Playlist playlist = playlistService.getPlaylistById(id);
-        return ResponseEntity.ok(playlist);
+    public Playlist getPlaylistById(@PathVariable Long id) {
+        return playlistService.getPlaylistById(id);
     }
 
-    // 3. PATCH - Update only the name by ID
+    // 3. PATCH -> 200 OK
     @PatchMapping("/{id}")
-    public ResponseEntity<Playlist> updatePlaylistName(@PathVariable Long id, @RequestBody Playlist playlistDetails) {
-        // Calls the specific name-update logic in the PlaylistService
-        Playlist updatedPlaylist = playlistService.updatePlaylistName(id, playlistDetails.getPlaylistName());
-        return ResponseEntity.ok(updatedPlaylist);
+    public Playlist updatePlaylistName(@PathVariable Long id, @RequestBody Playlist playlistDetails) {
+        return playlistService.updatePlaylistName(id, playlistDetails.getPlaylistName());
     }
 
-    // 4. DELETE
+    // 4. DELETE -> 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlaylist(@PathVariable Long id) {
         playlistService.deletePlaylist(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 5. GET ALL
+    // 5. GET ALL -> 200 OK
     @GetMapping
-    public ResponseEntity<List<Playlist>> getAllPlaylists() {
-        return ResponseEntity.ok(playlistService.getAllPlaylists());
+    public List<Playlist> getAllPlaylists() {
+        return playlistService.getAllPlaylists();
     }
 }

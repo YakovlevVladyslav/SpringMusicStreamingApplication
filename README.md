@@ -14,7 +14,8 @@ Realization of music streaming app with Java Spring
 
 ## TODO:
 
-resolve infinity recursions in entities with annotation @JsonBackReference and @JsonManagedReference
+create separated dto for entities and add @Valid
+
 
 
 ## Entities

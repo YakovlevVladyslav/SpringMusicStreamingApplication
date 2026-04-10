@@ -2,7 +2,9 @@ package com.example.app.controller;
 
 import com.example.app.entity.Album;
 import com.example.app.service.AlbumService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class AlbumController {
 
     // 1. CREATE
     @PostMapping
-    public ResponseEntity<Album> createAlbum(@RequestBody Album album) {
-        Album savedAlbum = albumService.saveAlbum(album);
-        return ResponseEntity.ok(savedAlbum);
+    @ResponseStatus(HttpStatus.CREATED) // Можно задать через аннотацию
+    public Album createAlbum(@Validated @RequestBody Album album) {
+        return albumService.saveAlbum(album);
     }
 
     // 2. GET BY ID
@@ -31,24 +33,23 @@ public class AlbumController {
         return ResponseEntity.ok(album);
     }
 
-    // 3. PATCH - Update only the name by ID
+    // 3. PATCH -> 200 OK
     @PatchMapping("/{id}")
     public ResponseEntity<Album> updateAlbumName(@PathVariable Long id, @RequestBody Album albumDetails) {
-        // Calls the specific name-update logic in the service
         Album updatedAlbum = albumService.updateAlbumName(id, albumDetails.getAlbumName());
         return ResponseEntity.ok(updatedAlbum);
     }
 
-    // 4. DELETE
+    // 4. DELETE -> 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlbum(@PathVariable Long id) {
         albumService.deleteAlbum(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); // Статус 204: "Успешно, отвечать нечем"
     }
 
-    // 5. GET ALL
+    // 5. GET ALL -> 200 OK
     @GetMapping
-    public ResponseEntity<List<Album>> getAllAlbums() {
-        return ResponseEntity.ok(albumService.getAllAlbums());
+    public List<Album> getAllAlbums() {
+        return albumService.getAllAlbums();
     }
 }

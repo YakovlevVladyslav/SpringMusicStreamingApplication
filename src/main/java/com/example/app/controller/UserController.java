@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import com.example.app.entity.User;
 import com.example.app.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,40 +18,37 @@ public class UserController {
         this.userService = userService;
     }
 
-    // 1. CREATE
+    // 1. CREATE -> 201 Created
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
-        return ResponseEntity.ok(savedUser);
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
-    // 2. GET BY ID
+    // 2. GET BY ID -> 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
-    // 3. PATCH - Update only the name
+    // 3. PATCH -> 200 OK
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updateUserName(@PathVariable Long id, @RequestBody User userDetails) {
-        // Extracts the userName from the incoming JSON object
-        User updatedUser = userService.updateUserName(id, userDetails.getUserName());
-        return ResponseEntity.ok(updatedUser);
+    public User updateUserName(@PathVariable Long id, @RequestBody User userDetails) {
+        return userService.updateUserName(id, userDetails.getUserName());
     }
 
-    // 4. DELETE BY ID
+    // 4. DELETE -> 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 5. GET ALL
+    // 5. GET ALL -> 200 OK
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        // Note: Your UserService currently has a typo where 'getAllArtists' returns Users.
-        // I've called that method here to match your provided Service code.
-        return ResponseEntity.ok(userService.getAllArtists());
+    public List<User> getAllUsers() {
+        // Вызываем метод сервиса. Если в сервисе опечатка (getAllArtists),
+        // советую переименовать его там для чистоты кода.
+        return userService.getAllUsers();
     }
 }

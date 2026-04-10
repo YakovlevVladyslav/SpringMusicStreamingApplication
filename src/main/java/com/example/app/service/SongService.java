@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import com.example.app.entity.Song;
+import com.example.app.exceptions.ResourceNotFoundException;
 import com.example.app.repository.SongRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class SongService {
      */
     public Song getSongById(Long id) {
         return songRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Song not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Song not found with id: " + id));
     }
 
     /**

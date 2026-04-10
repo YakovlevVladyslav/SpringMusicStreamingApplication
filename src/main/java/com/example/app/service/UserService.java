@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import com.example.app.entity.User;
+import com.example.app.exceptions.ResourceNotFoundException;
 import com.example.app.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class UserService {
     /**
      * Get all users for the prototype list
      */
-    public List<User> getAllArtists() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -35,7 +36,7 @@ public class UserService {
      */
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     /**
