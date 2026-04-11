@@ -73,6 +73,140 @@
         </div>
     </section>
 
+    <section class="page" id="page-albums">
+        <div class="page-header">
+            <div>
+                <h2>Albums</h2>
+                <p>/api/albums — GET · POST · PATCH · DELETE</p>
+            </div>
+        </div>
+
+        <div class="create-card">
+            <h3>Add New Album</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Album Name</label>
+                    <input id="al-name" type="text" placeholder="Enter album name..." />
+                </div>
+                <div class="form-group">
+                    <label>Artist ID</label>
+                    <input id="al-artist-id" type="number" placeholder="Artist ID..." />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="createAlbum()">+ Create Album</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="table-header">
+                <h3>All Albums</h3>
+                <button class="refresh-btn" onclick="loadAlbums()">↻ Refresh</button>
+            </div>
+            <div id="albums-table-body"></div>
+        </div>
+    </section>
+
+    <section class="page" id="page-artists">
+        <div class="page-header">
+            <div>
+                <h2>Artists</h2>
+                <p>/api/artists — Management of musical creators</p>
+            </div>
+        </div>
+
+        <div class="create-card">
+            <h3>Add New Artist</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Artist Name</label>
+                    <input id="a-name" type="text" placeholder="Enter artist name..." />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="createArtist()">+ Create Artist</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="table-header">
+                <h3>Artist List</h3>
+                <button class="refresh-btn" onclick="loadArtists()">↻ Refresh</button>
+            </div>
+            <div id="artists-table-body"></div>
+        </div>
+    </section>
+
+    <section class="page" id="page-users">
+    <div class="page-header">
+        <div>
+            <h2>Users</h2>
+            <p>/api/users — Community members</p>
+        </div>
+    </div>
+
+    <div class="form-card">
+    <div class="form-header">
+        <h3>Create New User</h3>
+    </div>
+    <div class="form-body">
+        <div class="form-group">
+            <label>Username</label>
+            <input id="u-name" type="text" placeholder="Enter username..." />
+        </div>
+        <div class="form-group">
+            <label>Favourite Artist ID (Optional)</label>
+            <input id="u-fav-artist" type="number" placeholder="Artist ID..." />
+        </div>
+    </div>
+    <div class="form-actions">
+        <button class="btn btn-primary" onclick="createUser()">+ Create User</button>
+    </div>
+</div>
+
+    <div class="table-wrap">
+        <div class="table-header">
+            <h3>User List</h3>
+            <button class="refresh-btn" onclick="loadUsers()">↻ Refresh</button>
+        </div>
+        <div id="users-table-body"></div>
+    </div>
+</section>
+
+<section class="page" id="page-playlists">
+    <div class="page-header">
+        <div>
+            <h2>Playlists</h2>
+            <p>/api/playlists — User collections</p>
+        </div>
+    </div>
+
+    <div class="create-card">
+        <h3>Add New Playlist</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Playlist Name</label>
+                <input id="pl-name" type="text" placeholder="Enter playlist name..." />
+            </div>
+            <div class="form-group">
+                <label>Owner User ID</label>
+                <input id="pl-user-id" type="number" placeholder="User ID..." />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" onclick="createPlaylist()">+ Create Playlist</button>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <div class="table-header">
+            <h3>All Playlists</h3>
+            <button class="refresh-btn" onclick="loadPlaylists()">↻ Refresh</button>
+        </div>
+        <div id="playlists-table-body"></div>
+    </div>
+</section>
+
 </main>
 
 <div class="modal-overlay" id="editModal">

@@ -1,9 +1,6 @@
 package com.example.app.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +20,14 @@ public class Playlist {
     @Column(name = "playlistName", nullable = false)
     private String playlistName;
 
+    // Playlist.java
+
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "user_id")
+// УДАЛИ @JsonBackReference
+// Добавь это, чтобы PATCH понимал, к какому пользователю относится плейлист
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "user_id", scope = User.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private User user;
 
     @ManyToMany

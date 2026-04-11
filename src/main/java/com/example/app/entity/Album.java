@@ -1,8 +1,6 @@
 package com.example.app.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -27,11 +25,16 @@ public class Album {
     @Length(min = 1, max = 255, message = "Album name must be between 1 and 255 characters")
     private String albumName;
 
+    // Album.java
+
+    // Album.java
+
     @ManyToOne
     @JoinColumn(name = "artist_id")
-    @JsonBackReference // to prevent infinite recursion during JSON serialization
+// Указываем Jackson, что вместо всего объекта нужно использовать только artist_id
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "artist_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Artist artist;
-
 
 
     @OneToMany(mappedBy = "album") // Matches "private Album album" in Song.java

@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -19,17 +20,13 @@ public class Artist {
     @Column(name = "artistName", nullable = false)
     private String artistName;
 
-    @OneToMany(mappedBy = "artist")// Matches "private Artist artist" in Album.java
-    @JsonManagedReference // to prevent infinite recursion during JSON serialization
-    private List<Album> albums;
+    // Artist.java
 
-    @ManyToMany
-    //@JsonManagedReference
-    @JsonIgnoreProperties("favouriteArtists") // To prevent infinite recursion during JSON serialization
-    @JoinTable(
-            name = "user_favourite_artists",
-            joinColumns = @JoinColumn(name = "artist_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @ManyToMany(mappedBy = "favouriteArtists")
+    @JsonIgnore // Самый безопасный вариант для этой стороны связи
     private List<User> fans;
+
+    @OneToMany(mappedBy = "artist")
+    @JsonIgnoreProperties("artist") // Вместо ManagedReference
+    private List<Album> albums;
 }
